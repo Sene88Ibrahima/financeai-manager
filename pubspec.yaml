@@ -46,6 +46,9 @@ dependencies:
   csv: ^5.0.2
   share_plus: ^7.2.1
   
+  # Environment variables
+  flutter_dotenv: ^5.1.0
+  
   # Animations & UI Effects
   flutter_spinkit: ^5.2.0
   shimmer: ^3.0.0
@@ -67,6 +70,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - .env
   
   fonts:
     - family: Poppins
@@ -83,14 +87,14 @@ flutter:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/financeai_logo.png"
+  image_path: "assets/images/logo.png"
   min_sdk_android: 21
   web:
     generate: true
-    image_path: "assets/icons/financeai_logo.png"
+    image_path: "assets/images/logo.png"
   windows:
     generate: true
-    image_path: "assets/icons/financeai_logo.png"
+    image_path: "assets/images/logo.png"
   macos:
     generate: true
-    image_path: "assets/icons/financeai_logo.png"
+    image_path: "assets/images/logo.png"

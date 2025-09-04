@@ -23,21 +23,15 @@ class ExpenseChart extends StatelessWidget {
           );
         }
 
-        return Column(
-          children: [
-            SizedBox(
-              height: 200,
-              child: PieChart(
-                PieChartData(
-                  sections: _buildPieChartSections(depensesParCategorie),
-                  centerSpaceRadius: 40,
-                  sectionsSpace: 2,
-                ),
-              ),
+        return SizedBox(
+          height: 200,
+          child: PieChart(
+            PieChartData(
+              sections: _buildPieChartSections(depensesParCategorie),
+              centerSpaceRadius: 40,
+              sectionsSpace: 2,
             ),
-            const SizedBox(height: 16),
-            _buildLegend(depensesParCategorie),
-          ],
+          ),
         );
       },
     );
@@ -76,52 +70,5 @@ class ExpenseChart extends StatelessWidget {
         ),
       );
     }).toList();
-  }
-
-  Widget _buildLegend(Map<String, double> data) {
-    final colors = [
-      AppTheme.primaryColor,
-      AppTheme.secondaryColor,
-      AppTheme.accentColor,
-      AppTheme.warningColor,
-      AppTheme.errorColor,
-      Colors.purple,
-      Colors.orange,
-      Colors.teal,
-      Colors.indigo,
-    ];
-
-    int colorIndex = 0;
-
-    return Wrap(
-      spacing: 16,
-      runSpacing: 8,
-      children: data.entries.map((entry) {
-        final color = colors[colorIndex % colors.length];
-        colorIndex++;
-
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
-            ),
-            const SizedBox(width: 6),
-            Text(
-              entry.key,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        );
-      }).toList(),
-    );
   }
 }

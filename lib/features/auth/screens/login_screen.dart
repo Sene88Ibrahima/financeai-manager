@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24),
                   const Text(
-                    'App Financier',
+                    'FinanceAI Manager',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 32,

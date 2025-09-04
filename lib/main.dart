@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'core/config/app_config.dart';
@@ -23,7 +24,10 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
+  // Charger les variables d'environnement
+  await dotenv.load(fileName: ".env");
+
   // Initialiser Hive
   await Hive.initFlutter();
   
@@ -31,17 +35,16 @@ void main() async {
   Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(BudgetAdapter());
   Hive.registerAdapter(GoalAdapter());
-  Hive.registerAdapter(ExpensePatternAdapter());
-  
+
   // Initialiser Supabase
   await Supabase.initialize(
     url: AppConfig.supabaseUrl,
     anonKey: AppConfig.supabaseAnonKey,
   );
-  
+
   // Initialiser les notifications
   await _initializeNotifications();
-  
+
   runApp(const AppFinancier());
 }
 
@@ -80,7 +83,7 @@ class AppFinancier extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ExpenseEstimationProvider()),
       ],
       child: MaterialApp.router(
-        title: 'App Financier',
+        title: 'FinanceAI Manager',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,

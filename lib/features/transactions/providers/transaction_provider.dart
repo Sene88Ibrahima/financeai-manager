@@ -98,17 +98,14 @@ class TransactionProvider extends ChangeNotifier {
   }
 
   Future<void> loadTransactions() async {
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
-    
-    // Délai artificiel pour montrer l'effet shimmer (plus long pour être visible)
-    await Future.delayed(const Duration(milliseconds: 1500));
-
     try {
+      _setLoading(true);
+      _setError(null);
+
       final user = _supabase.auth.currentUser;
       if (user == null) return;
 
+      // Charger depuis Supabase
       final response = await _supabase
           .from('transactions')
           .select()
@@ -119,10 +116,13 @@ class TransactionProvider extends ChangeNotifier {
           .map<Transaction>((data) => Transaction.fromJson(data))
           .toList();
 
+      // Sauvegarder en local avec Hive
       await _saveToLocal();
+
       notifyListeners();
     } catch (e) {
       _setError('Erreur lors du chargement: ${e.toString()}');
+      // Charger depuis le cache local en cas d'erreur
       await _loadFromLocal();
     } finally {
       _setLoading(false);

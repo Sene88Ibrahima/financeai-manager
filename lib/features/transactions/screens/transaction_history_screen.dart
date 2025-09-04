@@ -6,8 +6,6 @@ import 'package:intl/intl.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/models/transaction.dart';
-import '../../../core/widgets/loading_widgets.dart';
-import '../../../core/widgets/page_transitions.dart';
 import '../providers/transaction_provider.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
@@ -352,7 +350,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       body: Consumer<TransactionProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
-            return LoadingWidgets.transactionShimmer();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (provider.errorMessage != null) {
@@ -404,10 +402,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               separatorBuilder: (context, index) => const SizedBox(height: 8),
               itemBuilder: (context, index) {
                 final transaction = filteredTransactions[index];
-                return AnimatedListItem(
-                  index: index,
-                  child: Card(
-                    child: ListTile(
+                return Card(
+                  child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: transaction.isRevenu
                           ? AppTheme.successColor.withOpacity(0.2)
@@ -453,7 +449,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                       ),
                     ),
                     onTap: () => _showTransactionDetails(transaction),
-                    ),
                   ),
                 );
               },

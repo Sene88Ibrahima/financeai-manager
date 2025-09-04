@@ -198,10 +198,8 @@ class GoalProvider extends ChangeNotifier {
             goal.estAtteint = true;
           }
           
-          // Persister les changements (async sans await pour éviter les erreurs)
-          updateGoal(goal).catchError((e) {
-            debugPrint('Erreur mise à jour objectif: $e');
-          });
+          // Persister les changements
+          updateGoal(goal);
         }
       }
     }

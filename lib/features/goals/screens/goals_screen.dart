@@ -5,9 +5,6 @@ import 'package:intl/intl.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/models/goal.dart';
-import '../../../core/widgets/loading_widgets.dart';
-import '../../../core/widgets/circular_progress_card.dart';
-import '../../../core/widgets/confetti_widget.dart';
 import '../providers/goal_provider.dart';
 import '../../transactions/providers/transaction_provider.dart';
 
@@ -55,7 +52,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       body: Consumer<GoalProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
-            return LoadingWidgets.goalShimmer();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (provider.errorMessage != null) {

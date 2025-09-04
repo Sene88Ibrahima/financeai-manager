@@ -113,7 +113,7 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () {
                           showAboutDialog(
                             context: context,
-                            applicationName: 'App Financier',
+                            applicationName: 'FinanceAI Manager',
                             applicationVersion: '1.0.0',
                             applicationIcon: const Icon(
                               Icons.account_balance_wallet,
