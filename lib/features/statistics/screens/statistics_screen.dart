@@ -494,6 +494,203 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
       Colors.indigo,
     ];
 
+    final total = depensesParCategorie.values.fold(0.0, (sum, value) => sum + value);
+    int colorIndex = 0;
+    
+    return Column(
+      children: [
+        SizedBox(
+          height: 200,
+          child: PieChart(
+            PieChartData(
+              sections: depensesParCategorie.entries.map((entry) {
+                final color = colors[colorIndex % colors.length];
+                final percentage = (entry.value / total * 100);
+                colorIndex++;
+                
+                return PieChartSectionData(
+                  color: color,
+                  value: entry.value,
+                  title: percentage >= 5 ? '${percentage.toStringAsFixed(1)}%' : '',
+                  radius: 80,
+                  titleStyle: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [Shadow(color: Colors.black26, blurRadius: 2)],
+                  ),
+                  badgeWidget: percentage < 5 ? _buildSmallPercentageBadge(percentage) : null,
+                  badgePositionPercentageOffset: 1.2,
+                );
+              }).toList(),
+              centerSpaceRadius: 40,
+              sectionsSpace: 2,
+              pieTouchData: PieTouchData(
+                touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                  // Pour interactions futures
+                },
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        _buildChartLegend(depensesParCategorie, colors),
+      ],
+    );
+  }
+
+  Widget _buildChartLegend(Map<String, double> data, List<Color> colors) {
+    final total = data.values.fold(0.0, (sum, value) => sum + value);
+    int colorIndex = 0;
+
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey[300]!),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Catégories',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              Text(
+                'Total: ${NumberFormat.currency(
+                  locale: 'fr_FR',
+                  symbol: AppConfig.currencySymbol,
+                ).format(total)}',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ...data.entries.map((entry) {
+            final color = colors[colorIndex % colors.length];
+            final percentage = (entry.value / total * 100);
+            colorIndex++;
+
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                children: [
+                  Container(
+                    width: 16,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: color.withOpacity(0.4),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      entry.key,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    NumberFormat.currency(
+                      locale: 'fr_FR',
+                      symbol: AppConfig.currencySymbol,
+                    ).format(entry.value),
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      '${percentage.toStringAsFixed(1)}%',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: color,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSmallPercentageBadge(double percentage) {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      child: Text(
+        '${percentage.toStringAsFixed(1)}%',
+        style: const TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+          color: Colors.black87,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildExpensePieChartOld(TransactionProvider provider) {
+    final depensesParCategorie = provider.depensesParCategorie;
+    
+    if (depensesParCategorie.isEmpty) {
+      return const Center(child: Text('Aucune donnée à afficher'));
+    }
+
+    final colors = [
+      AppTheme.primaryColor,
+      AppTheme.secondaryColor,
+      AppTheme.accentColor,
+      AppTheme.warningColor,
+      AppTheme.errorColor,
+      Colors.purple,
+      Colors.orange,
+      Colors.teal,
+      Colors.indigo,
+    ];
+
     int colorIndex = 0;
     final sections = depensesParCategorie.entries.map((entry) {
       final color = colors[colorIndex % colors.length];

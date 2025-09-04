@@ -14,6 +14,7 @@ import '../../features/ai_assistant/screens/ai_chat_screen.dart';
 import '../../features/statistics/screens/statistics_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
 import '../../features/expense_estimation/screens/expense_estimation_screen.dart';
+import '../../features/demo/demo_widgets_page.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -89,6 +90,10 @@ class AppRouter {
       GoRoute(
         path: '/expense-estimation',
         builder: (context, state) => const ExpenseEstimationScreen(),
+      ),
+      GoRoute(
+        path: '/demo',
+        builder: (context, state) => const DemoWidgetsPage(),
       ),
     ],
   );
