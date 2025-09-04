@@ -1,10 +1,10 @@
 class AppConfig {
-  // Configuration Supabase - À remplacer par vos vraies clés
-  static const String supabaseUrl = 'https://nrcqiqnundxminikifym.supabase.co';
-  static const String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yY3FpcW51bmR4bWluaWtpZnltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MjU3MTUsImV4cCI6MjA3MjUwMTcxNX0.4Vhp-rIuO0mwwc-af-OrVUr-9KPgHKJiJS_UdJoA8FQ';
+  // Configuration Supabase - Utilise les variables d'environnement ou GitHub Secrets
+  static const String supabaseUrl = String.fromEnvironment('SUPABASE_URL', defaultValue: 'REMPLACER_PAR_VOTRE_URL');
+  static const String supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY', defaultValue: 'REMPLACER_PAR_VOTRE_CLE');
   
-  // Configuration OpenRouter AI
-  static const String openRouterApiKey = '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';
+  // Configuration OpenRouter AI - Utilise les variables d'environnement ou GitHub Secrets
+  static const String openRouterApiKey = String.fromEnvironment('OPENROUTER_API_KEY', defaultValue: 'REMPLACER_PAR_VOTRE_CLE');
   static const String openRouterBaseUrl = 'https://openrouter.ai/api/v1';
   static const String aiModel = 'deepseek/deepseek-chat-v3.1:free';
   
