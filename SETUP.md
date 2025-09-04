@@ -1,4 +1,4 @@
-# Guide de Configuration - App Financier
+# Guide de Configuration - FinanceAI Manager
 
 ## 🚀 Démarrage Rapide
 
@@ -13,7 +13,7 @@
 ```bash
 # Cloner le projet
 git clone <repository-url>
-cd app_financier
+cd financeai_manager
 
 # Installer les dépendances
 flutter pub get

@@ -161,7 +161,7 @@ Pour toute question ou problème :
 1. **Cloner le projet**
 ```bash
 git clone <repository-url>
-cd app_financier
+cd financeai_manager
 ```
 
 2. **Installer les dépendances**
