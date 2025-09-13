@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_theme.dart';
 
@@ -30,28 +29,28 @@ class QuickActions extends StatelessWidget {
                   'Ajouter\nRevenu',
                   Icons.add_circle,
                   AppTheme.successColor,
-                  () => context.go('/add-revenue'),
+                  () => Navigator.of(context).pushNamed('/add-revenue'),
                 ),
                 _buildActionButton(
                   context,
                   'Ajouter\nDépense',
                   Icons.remove_circle,
                   AppTheme.errorColor,
-                  () => context.go('/add-expense'),
+                  () => Navigator.of(context).pushNamed('/add-expense'),
                 ),
                 _buildActionButton(
                   context,
                   'Voir\nBudgets',
                   Icons.account_balance_wallet,
                   AppTheme.primaryColor,
-                  () => context.go('/budgets'),
+                  () => Navigator.of(context).pushNamed('/budgets'),
                 ),
                 _buildActionButton(
                   context,
                   'Assistant\nIA',
                   Icons.smart_toy,
                   AppTheme.warningColor,
-                  () => context.go('/ai-assistant'),
+                  () => Navigator.of(context).pushNamed('/ai-assistant'),
                 ),
               ],
             ),

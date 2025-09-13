@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
@@ -334,6 +333,10 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Historique des transactions'),
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),
@@ -457,7 +460,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('/add-expense'),
+        onPressed: () => Navigator.of(context).pushNamed('/add-expense'),
         child: const Icon(Icons.add),
       ),
     );

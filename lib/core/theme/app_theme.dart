@@ -35,6 +35,8 @@ class AppTheme {
         foregroundColor: textLight,
         elevation: 0,
         centerTitle: true,
+        iconTheme: IconThemeData(color: textLight),
+        actionsIconTheme: IconThemeData(color: textLight),
         titleTextStyle: TextStyle(
           fontFamily: 'Poppins',
           fontSize: 20,
@@ -141,6 +143,8 @@ class AppTheme {
         foregroundColor: textLight,
         elevation: 0,
         centerTitle: true,
+        iconTheme: IconThemeData(color: textLight),
+        actionsIconTheme: IconThemeData(color: textLight),
         titleTextStyle: TextStyle(
           fontFamily: 'Poppins',
           fontSize: 20,

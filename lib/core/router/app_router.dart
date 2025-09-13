@@ -6,6 +6,7 @@ import '../../features/auth/providers/auth_provider.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/home/screens/main_screen.dart';
 import '../../features/transactions/screens/add_transaction_screen.dart';
 import '../../features/transactions/screens/transaction_history_screen.dart';
 import '../../features/budgets/screens/budget_screen.dart';
@@ -15,6 +16,7 @@ import '../../features/statistics/screens/statistics_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
 import '../../features/expense_estimation/screens/expense_estimation_screen.dart';
 import '../../features/demo/demo_widgets_page.dart';
+import '../../features/settings/settings_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -46,23 +48,20 @@ class AppRouter {
         builder: (context, state) => const RegisterScreen(),
       ),
       
+      // ShellRoute pour les écrans avec barre de navigation
+      ShellRoute(
+        builder: (context, state, child) {
+          return MainScreen(child: child);
+        },
+        routes: [
+          GoRoute(
+            path: '/home',
+            builder: (context, state) => const HomeScreen(),
+          ),
+        ],
+      ),
+      
       // Routes principales
-      GoRoute(
-        path: '/home',
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
-        path: '/add-transaction',
-        builder: (context, state) => const AddTransactionScreen(),
-      ),
-      GoRoute(
-        path: '/add-revenue',
-        builder: (context, state) => const AddTransactionScreen(),
-      ),
-      GoRoute(
-        path: '/add-expense',
-        builder: (context, state) => const AddTransactionScreen(),
-      ),
       GoRoute(
         path: '/transactions',
         builder: (context, state) => const TransactionHistoryScreen(),
@@ -87,9 +86,27 @@ class AppRouter {
         path: '/profile',
         builder: (context, state) => const ProfileScreen(),
       ),
+      
+      // Routes modales
+      GoRoute(
+        path: '/add-transaction',
+        builder: (context, state) => const AddTransactionScreen(),
+      ),
+      GoRoute(
+        path: '/add-revenue',
+        builder: (context, state) => const AddTransactionScreen(),
+      ),
+      GoRoute(
+        path: '/add-expense',
+        builder: (context, state) => const AddTransactionScreen(),
+      ),
       GoRoute(
         path: '/expense-estimation',
         builder: (context, state) => const ExpenseEstimationScreen(),
+      ),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
         path: '/demo',

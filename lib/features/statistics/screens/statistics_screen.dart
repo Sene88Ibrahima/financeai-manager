@@ -36,6 +36,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
     return Scaffold(
       appBar: AppBar(
         title: const Text('Statistiques'),
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [

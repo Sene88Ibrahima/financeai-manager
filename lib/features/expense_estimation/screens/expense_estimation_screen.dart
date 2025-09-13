@@ -38,6 +38,14 @@ class _ExpenseEstimationScreenState extends State<ExpenseEstimationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Estimation des dépenses'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.white.withOpacity(0.2),
+            foregroundColor: Colors.white,
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),

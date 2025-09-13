@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 
 import '../providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
@@ -44,23 +43,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     if (success && mounted) {
-      context.go('/home');
+      Navigator.of(context).pushReplacementNamed('/home');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Inscription'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/login'),
+          onPressed: () => Navigator.of(context).pushReplacementNamed('/login'),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+          ),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Consumer<AuthProvider>(
             builder: (context, authProvider, child) {
               return Column(
@@ -256,7 +262,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       const Text('Déjà un compte ? '),
                       TextButton(
-                        onPressed: () => context.go('/login'),
+                        onPressed: () => Navigator.of(context).pushReplacementNamed('/login'),
                         child: const Text('Se connecter'),
                       ),
                     ],

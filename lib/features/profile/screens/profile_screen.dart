@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../auth/providers/auth_provider.dart';
@@ -13,6 +12,10 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Consumer<AuthProvider>(
         builder: (context, authProvider, child) {
@@ -163,7 +166,7 @@ class ProfileScreen extends StatelessWidget {
 
                       if (confirm == true && context.mounted) {
                         await authProvider.signOut();
-                        context.go('/login');
+                        Navigator.of(context).pushReplacementNamed('/login');
                       }
                     },
                   ),

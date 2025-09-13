@@ -1,12 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    // Align Kotlin with settings.gradle plugin version
+    ext.kotlin_version = '1.9.24'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        // AGP upgraded to resolve jlink error with Java 21 (requires AGP >= 8.2.1)
+        classpath 'com.android.tools.build:gradle:8.7.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

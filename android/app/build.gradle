@@ -1,6 +1,7 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
+    // Use the modern Kotlin Android plugin ID compatible with AGP 8.x
+    id "org.jetbrains.kotlin.android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -25,15 +26,20 @@ if (flutterVersionName == null) {
 android {
     namespace "com.example.financeai_manager"
     compileSdk flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    // Align NDK version with plugins requirements
+    ndkVersion "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        // Use Java 17 to be compatible with newer AGP and toolchains
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        // Enable core library desugaring for flutter_local_notifications
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        // Align Kotlin JVM target with Java toolchain
+        jvmTarget = '17'
     }
 
     sourceSets {
@@ -57,4 +63,9 @@ android {
 
 flutter {
     source '../..'
+}
+
+dependencies {
+    // Core library desugaring for flutter_local_notifications
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 }

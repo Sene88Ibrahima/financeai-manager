@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
@@ -33,26 +32,21 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_routeParsed) return;
+    
     // Déterminer le type selon la route
-    final routerState = GoRouterState.of(context);
-    final location = routerState.fullPath ?? routerState.uri.path;
-    if (location.contains('/add-revenue')) {
-      setState(() {
-        _type = 'revenu';
-      });
-    } else if (location.contains('/add-expense')) {
-      setState(() {
-        _type = 'depense';
-      });
-    } else {
-      // Récupérer le type depuis les paramètres de route si disponible
-      final typeParam = routerState.uri.queryParameters['type'];
-      if (typeParam != null && (typeParam == 'revenu' || typeParam == 'depense')) {
+    final routeName = ModalRoute.of(context)?.settings.name;
+    if (routeName != null) {
+      if (routeName.contains('/add-revenue')) {
         setState(() {
-          _type = typeParam;
+          _type = 'revenu';
+        });
+      } else if (routeName.contains('/add-expense')) {
+        setState(() {
+          _type = 'depense';
         });
       }
     }
+    
     _routeParsed = true;
   }
 
@@ -107,7 +101,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Transaction ajoutée avec succès')),
       );
-      context.go('/home');
+      Navigator.of(context).pop();
     }
   }
 
@@ -118,12 +112,15 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         title: Text('Ajouter ${_type == 'revenu' ? 'un revenu' : 'une dépense'}'),
         leading: IconButton(
           icon: const Icon(Icons.close),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            // Simplifié: retour direct à l'accueil
+            Navigator.of(context).pushReplacementNamed('/home');
+          },
         ),
         actions: _type == 'depense' ? [
           IconButton(
             icon: const Icon(Icons.analytics),
-            onPressed: () => context.go('/expense-estimation'),
+            onPressed: () => Navigator.of(context).pushNamed('/expense-estimation'),
             tooltip: 'Estimation des dépenses',
           ),
         ] : null,

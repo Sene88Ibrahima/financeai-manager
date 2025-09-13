@@ -64,6 +64,7 @@ class _AIChatScreenState extends State<AIChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Assistant IA'),
+        leading: BackButton(onPressed: () => Navigator.of(context).pop()),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),

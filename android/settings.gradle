@@ -23,8 +23,10 @@ pluginManagement {
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "7.3.0" apply false
-    id "org.jetbrains.kotlin.android" version "1.7.10" apply false
+    // Upgrade AGP to >= 8.2.1 to fix jlink error with Java 21. Use 8.7.3 to align with Gradle 8.12 wrapper
+    id "com.android.application" version "8.7.3" apply false
+    // Upgrade Kotlin to >= 1.8.10; use 1.9.24 for broad compatibility with Flutter
+    id "org.jetbrains.kotlin.android" version "1.9.24" apply false
 }
 
 include ":app"

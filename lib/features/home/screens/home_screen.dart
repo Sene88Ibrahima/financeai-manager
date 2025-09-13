@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 
@@ -23,8 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-
   @override
   void initState() {
     super.initState();
@@ -57,74 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.person),
-            onPressed: () => context.go('/profile'),
+            onPressed: () => Navigator.of(context).pushNamed('/profile'),
           ),
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: const [
-          DashboardTab(),
-          TransactionsTab(),
-          BudgetsTab(),
-          GoalsTab(),
-          AIAssistantTab(),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          
-          // Navigation vers les écrans correspondants
-          switch (index) {
-            case 0:
-              // Rester sur le dashboard
-              break;
-            case 1:
-              context.go('/transactions');
-              break;
-            case 2:
-              context.go('/budgets');
-              break;
-            case 3:
-              context.go('/goals');
-              break;
-            case 4:
-              context.go('/ai-assistant');
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'Transactions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Budgets',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.flag),
-            label: 'Objectifs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.smart_toy),
-            label: 'Assistant IA',
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('/add-transaction'),
-        child: const Icon(Icons.add),
-      ),
+      body: const DashboardTab(),
     );
   }
 }
@@ -196,7 +130,7 @@ class DashboardTab extends StatelessWidget {
                           ),
                         ),
                         TextButton(
-                          onPressed: () => context.go('/transactions'),
+                          onPressed: () => Navigator.of(context).pushNamed('/transactions'),
                           child: const Text('Voir tout'),
                         ),
                       ],
@@ -280,47 +214,3 @@ class DashboardTab extends StatelessWidget {
   }
 }
 
-// Onglets temporaires pour la navigation
-class TransactionsTab extends StatelessWidget {
-  const TransactionsTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Onglet Transactions'),
-    );
-  }
-}
-
-class BudgetsTab extends StatelessWidget {
-  const BudgetsTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Onglet Budgets'),
-    );
-  }
-}
-
-class GoalsTab extends StatelessWidget {
-  const GoalsTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Onglet Objectifs'),
-    );
-  }
-}
-
-class AIAssistantTab extends StatelessWidget {
-  const AIAssistantTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Onglet Assistant IA'),
-    );
-  }
-}
